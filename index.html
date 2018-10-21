@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>christmas</title>
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+	<style>
+	*{font-family: 'Lobster', cursive;}
+	html{font-family: 'Lobster', cursive;}
+
+	body {background: #F9CED9;}	
+
+
+	#switch1{height: 130px; position: absolute; top: 300px; left: 1150px; opacity: 1;}
+	#switch1:hover{opacity: 0;}
+
+	#switch2{height: 130px; position: absolute; top: 300px; left: 1150px; opacity: 1;}
+
+	#box{width: 180px; position: absolute; top: 400px; left:630px;}
+	#boxcap{width: 190px; position: absolute; top: 340px; left:625px; animation: open 1s forwards; 
+		animation-play-state: paused;}
+	@keyframes open{
+		from{top:340px;}
+		to{top: 300px;}
+	}
+
+	#triangle{ position: absolute; left: 445px;
+		width: 0;height: 0;
+		border-left: 280px solid transparent;
+		border-right: 280px solid transparent;
+		border-bottom: 570px solid #FF1DA4;
+		animation: on 1s forwards;
+		animation-play-state: paused;
+		}
+	@keyframes on{
+		from {transform:scaleX(0);}
+		to{transform:scaleX(1);}
+	}
+
+	#block{background:#F9CED9; width: 500px; height: 600px; position: absolute; top: 10px; left: 350px; animation: back 0.001s forwards; animation-play-state: paused;
+	}
+	@keyframes back{
+		from{z-index: 1;}
+		to{z-index: -1;}
+	}
+
+	#boom{position: absolute; width: 350px; left: 560px; top: 300px; z-index: -1;}
+
+
+	.snow1 {width: 20px; position: absolute; 
+		animation: snowani 5s linear infinite;
+		animation-play-state: paused;}
+	.snow2 {width: 30px; position: absolute; 
+		animation: snowani 5s linear infinite;
+		animation-play-state: paused;}
+	@keyframes snowani{
+		from{margin-top: 0px;}
+		to{margin-top: 500px; transform:rotate3d(1,1,0,360deg);}
+	}
+
+	#clocktext{
+		text-align: center;
+		font-size: 40px;
+		margin-top: 40px;
+		color: #C1003C;
+		/*
+		animation:clocktrans 0.1s forwards;
+		animation-play-state: paused;
+		*/
+		}
+	#clock{
+		text-align: center;
+		font-size: 40px;
+		margin-top: -30px;
+		color: #C1003C;	
+		/*
+		animation:clocktrans 0.1s forwards;
+		animation-play-state: paused;	
+		*/
+		}
+
+	@keyframes clocktrans{
+		from{opacity: 0;}
+		to{opacity: 0;}
+
+	#a{background:red; width: 100px; height: 100px; position: absolute;z-index: 2;}
+
+	</style>
+</head>
+
+<body>
+	<!------스위치------>
+	<img src="switch2.png" id="switch2">
+	<img src="switch1.png" id="switch1">
+
+
+	<!------박스, 상자------>
+	<div id="triangle"></div>
+	<img src="box.png" id="box">
+	<img src="boxcap.png" id="boxcap">
+	<div id="block"> </div>
+	<audio id="tapSound">
+		<source src="tap.mp3" type="audio/mp3">
+	</audio>
+
+	<!--<img src="boom.gif" id="boom">-->
+	<audio id="bell">
+		<source src="xmassong.mp3" type="audio/mp3">
+	</audio>
+
+	<!------눈내리기1------>
+	<div id="snowdrop">
+		<img src="snow1.png" class="snow1">
+	</div>
+	<div id="snowCon"></div>
+	<!------눈내리기2------>
+	<div id="snowdrop2">
+		<img src="snow2.png" class="snow2">	
+	</div>
+	<div id="snow2Con"></div>
+
+	<!------요정------>
+	<div id="a">ddd</div>
+
+	<!------시계------>
+	<p id="clocktext">Until Christmas</p>
+	<p id="clock"></p>
+
+
+	
+
+	<script type="text/javascript">
+
+		switch1.onmouseover = function(){
+			switch1.style.cursor = "pointer";
+		}
+		switch1.onclick = function(){tapSound.play();}
+			tapSound.onended = function(){
+				triangle.style.animationPlayState = "running";
+				block.style.animationPlayState = "running";
+		}
+
+		boxcap.onmouseover = function(){
+			boxcap.style.cursor = "pointer";
+		}
+		boxcap.onclick = function(){
+
+			boxcap.style.animationPlayState = "running";
+			bell.play();
+			//clock.style.animationPlayState = "running";
+			//clocktext.style.animationPlayState = "running";
+			
+			//------------눈내리기1------------//
+			var total = 0;
+			for(var i=0; i<10; i++){
+				var t = document.getElementById("snowdrop");
+				var k = t.cloneNode(true);
+				k.className = "snow1";
+
+				k.style.left = Math.random() * 1500 + i + "px";
+				k.style.top = Math.random() * 30 + i + "px";
+				k.style.animationDelay = i * 2 + "s";
+				
+				snowCon.appendChild(k);
+
+				}
+			//------------눈내리기2------------//
+			var total = 0;
+			for(var i=0; i<10; i++){
+				var e = document.getElementById("snowdrop2");
+				var f = e.cloneNode(true);
+				f.className = "snow2";
+
+				f.style.left = Math.random() * 1500 + i + "px";
+				f.style.top = Math.random() * 30 + i + "px";
+				f.style.animationDelay = i * 0.2 + "s";
+				
+				snowCon.appendChild(f);
+
+				}
+		}
+			snowdrop.style.display = "none";
+			snowdrop2.style.display = "none";
+
+
+
+	//------------시계------------//
+	// 날짜 설정 we're counting down to
+		var countDownDate = new Date("Dec. 25, 2018 00:00:00").getTime();
+	// Update the count down every 1 second
+		var x = setInterval(function() {
+	// Get todays date and time
+		var now = new Date().getTime();
+	
+	// Find the distance between now and the count down date
+	var distance = countDownDate - now;
+
+	// Time calculations for days, hours, minutes and seconds
+	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	
+	// Output the result in an element with id="clock"
+	document.getElementById("clock").innerHTML = days + "d " + hours + "h "
+	+ minutes + "m " + seconds + "s ";
+	}, 1);
+
+
+
+
+	</script>
+	
+
+
+
+
+
+
+
+</body>
+</html>
